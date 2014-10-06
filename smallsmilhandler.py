@@ -25,7 +25,7 @@ class SmallSMILHandler(ContentHandler):
         self.audio_dur = ""
         self.textstream_src = ""
         self.textstream_region = ""
-        #self. = ""
+        self.etiquetas = []
 
     def starElement(self, etiqueta, atributo):
         if etiqueta == "root-layout":
@@ -36,6 +36,7 @@ class SmallSMILHandler(ContentHandler):
             self.root_layout = {"width": self.root_layout_width,
             "heigh": self.root_layout_heigh,
             "background-color": self.root_layout_background_color}
+			self.etiquetas.append([etiqueta, self.root_layout])
         elif etiqueta == "region":
             self.region_id = atributo.get("id", "")
             self.region_top = atributo.get("top", "")
@@ -45,6 +46,7 @@ class SmallSMILHandler(ContentHandler):
             self.region = {"id": self.region_id, "top": self.region_top,
             "bottom": self.region_bottom, "left": self.region_left,
             "right": self.region_right}
+			self.etiquetas.append([etiqueta, self.region])
         elif etiqueta == "img":
             self.img_src = atributo.get("src", "")
             self.img_region = atributo.get("region", "")
@@ -52,18 +54,20 @@ class SmallSMILHandler(ContentHandler):
             self.img_dur = atributo.get("dur", "")
             self.img = {"src":  self.img_src, "region": self.img_region,
             "begin": self.img_begi, "dur": self.img_dur}
+			self.etiquetas.append([etiqueta, self.img])
         elif etiqueta == "audio":
             self.audio_src = atributo.get("src", "")
             self.audio_begin = atributo.get("begin", "")
             self.audio_dur = atributo.get("dur", "")
             sel.audio = {"src": self.audio_src, "begin": self.audio_begin,
             "dur": self.audio_dur}
-
+			self.etiquetas.append([etiqueta, self.audio])
         elif etiqueta == "textstream":
             self.textstream_src = atributo.get("src", "")
             self.textstream_region = atributo.get("region", "")
             self.textstream = {"src": self.textstream_src,
             "region": self.textstream_region}
+			self.etiquetas.append([etiqueta, self.textstream])
 
     #def get_tags(self):
         #print lista
