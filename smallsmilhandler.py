@@ -9,7 +9,7 @@ class SmallSMILHandler(ContentHandler):
 
     def __init__(self):
         self.root_layout_width = ""
-        self.root_layout_heigh = ""
+        self.root_layout_height = ""
         self.root_layout_background_color = ""
         self.region_id = ""
         self.region_top = ""
@@ -27,14 +27,14 @@ class SmallSMILHandler(ContentHandler):
         self.textstream_region = ""
         self.lista = []
 
-    def starElement(self, etiqueta, atributo):
+    def startElement(self, etiqueta, atributo):
         if etiqueta == "root-layout":
             self.root_layout_width = atributo.get("width", "")
-            self.root_layout_heigh = atributo.get("heigh", "")
-            self.root_layout_background_color =
-            atributo.get("background-color", "")
+            self.root_layout_height = atributo.get("height", "")
+            self.root_layout_background_color = atributo.get
+            ("background-color", "")
             self.root_layout = {"width": self.root_layout_width,
-            "heigh": self.root_layout_heigh,
+            "height": self.root_layout_height,
             "background-color": self.root_layout_background_color}
             self.lista.append([etiqueta, self.root_layout])
         elif etiqueta == "region":
@@ -52,14 +52,14 @@ class SmallSMILHandler(ContentHandler):
             self.img_region = atributo.get("region", "")
             self.img_begin = atributo.get("begin", "")
             self.img_dur = atributo.get("dur", "")
-            self.img = {"src":  self.img_src, "region": self.img_region,
-            "begin": self.img_begi, "dur": self.img_dur}
+            self.img = {"src": self.img_src, "region": self.img_region,
+            "begin": self.img_begin, "dur": self.img_dur}
             self.lista.append([etiqueta, self.img])
         elif etiqueta == "audio":
             self.audio_src = atributo.get("src", "")
             self.audio_begin = atributo.get("begin", "")
             self.audio_dur = atributo.get("dur", "")
-            sel.audio = {"src": self.audio_src, "begin": self.audio_begin,
+            self.audio = {"src": self.audio_src, "begin": self.audio_begin,
             "dur": self.audio_dur}
             self.lista.append([etiqueta, self.audio])
         elif etiqueta == "textstream":
@@ -73,7 +73,6 @@ class SmallSMILHandler(ContentHandler):
         return self.lista
 
 if __name__ == "__main__":
-
     parser = make_parser()
     cHandler = SmallSMILHandler()
     parser.setContentHandler(cHandler)
