@@ -79,3 +79,4 @@ if __name__ == "__main__":
     parser.parse(open("karaoke.smil"))
     lista = cHandler.get_tags()
     print lista
+# al imprimir por pantalla el color no lo hace bien
