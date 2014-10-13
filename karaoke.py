@@ -18,14 +18,15 @@ class KaraokeLocal(smallsmilhandler.SmallSMILHandler):
         self.lista = cHandler.get_tags()
 
     def __str__(self):  # imprime la lista
+        valor = ""
         for sublista in self.lista:
             etiqueta = sublista[0]
             dic = sublista[1]
-            print etiqueta + "\t",
+            valor += "\n" + etiqueta + "\t"
             for atributo in dic:
                 if dic[atributo] != "" and atributo != "":
-                    print atributo + "=" + dic[atributo] + "\t",
-            print
+                    valor += atributo + "=" + '"' + dic[atributo] + '"' + "\t"
+        return valor
 
     def do_local(self):     # descarga recursos remotos
         for sublista in self.lista:
@@ -38,14 +39,13 @@ class KaraokeLocal(smallsmilhandler.SmallSMILHandler):
                     lista = recurso.split("/")
                     lista = lista[-1]
                     dic[atributo] = lista
-                    print dic[atributo]
 
 if __name__ == "__main__":
     try:
         karaoke = KaraokeLocal(sys.argv[1])
-        karaoke.__str__()
-        karaoke.do_local()
-        karaoke.__str__()
-    except:
+    except KeyError:
         print "Usage: python karaoke.py file.smil"
         sys.exit()
+    print karaoke.__str__()
+    karaoke.do_local()
+    print karaoke.__str__()
