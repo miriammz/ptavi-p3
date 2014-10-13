@@ -24,7 +24,7 @@ class KaraokeLocal(smallsmilhandler.SmallSMILHandler):
             dic = sublista[1]
             valor += "\n" + etiqueta + "\t"
             for atributo in dic:
-                if dic[atributo] != "" and atributo != "":
+                if dic[atributo] != "":
                     valor += atributo + "=" + '"' + dic[atributo] + '"' + "\t"
         return valor
 
